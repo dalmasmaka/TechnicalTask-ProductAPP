@@ -3,11 +3,13 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/home/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, NavbarComponent, CommonModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  
 })
 export class AppComponent {
   title = 'TechnicalTask-ProductAPP';

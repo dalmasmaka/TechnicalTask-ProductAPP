@@ -1,0 +1,35 @@
+<div class="register">
+  <div class="register-container">
+    <div class="left-panel">
+      <app-lottie></app-lottie>
+    </div>
+    <div class="right-panel">
+      <div class="login-box">
+        <h1>Sign Up</h1>
+        <form>
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="Enter your username" />
+          </div>
+          <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" placeholder="Enter your username" />
+          </div>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter your password" />
+          </div>
+          <div class="input-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" placeholder="Enter your password" />
+          </div>
+          <div class="actions">
+            <a routerLink='/login'>Already have an account?</a>
+            <a routerLink='/forgotpassword'>Forgot password?</a>
+          </div>
+          <button mat-raised-button color="accent" routerLink="/register">Sign up</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
