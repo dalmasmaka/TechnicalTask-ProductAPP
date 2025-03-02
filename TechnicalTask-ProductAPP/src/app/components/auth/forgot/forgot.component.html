@@ -1,0 +1,30 @@
+<div class="forgot">
+    <div class="forgot-container">
+      <!-- Left Panel with Lottie Animation -->
+      <div class="left-panel">
+        <app-lottie></app-lottie>
+      </div>
+      <!-- Right Panel with Login Form -->
+      <div class="right-panel">
+        <div class="login-box">
+          <section class="mat-typography">
+            <h1>Forgot Password?</h1>
+            <p>*Please enter your username to search for your account.</p>
+          </section>
+          <form>
+            <div class="input-group">
+              <label for="username">Username</label>
+              <input type="text" id="username" placeholder="Enter your username" />
+            </div>
+            <div class="actions">
+                <a routerLink='/login'>Already have an account?</a>
+              <a routerLink='/register'>Don't have an account?</a>
+              
+            </div>
+            <button mat-raised-button color="accent" routerLink="/register">Verify</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  
+  </div>
