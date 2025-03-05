@@ -8,7 +8,6 @@ import { CategoryService } from './services/category.service';
 import { ToastrModule } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 
-
 @Component({
   selector: 'app-root',
   imports: [
@@ -16,8 +15,6 @@ import { TranslateService } from '@ngx-translate/core';
     CommonModule,
     RouterOutlet,
     ToastrModule,
-    
-   
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -30,9 +27,16 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class AppComponent {
   title = 'TechnicalTask-ProductAPP';
-  /**
-   *
-   */
-  constructor() {
+
+  constructor(private translate: TranslateService) {
+    this.configureTranslations();
+  }
+
+  private configureTranslations() {
+    this.translate.addLangs(['en', 'de']); 
+    this.translate.setDefaultLang('en');
+
+    const browserLang = this.translate.getBrowserLang();
+    this.translate.use(browserLang?.match(/en|de/) ? browserLang : 'en'); 
   }
 }

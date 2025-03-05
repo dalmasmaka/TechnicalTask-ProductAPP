@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA  } from '@angular/material/dialog';
 import { UserService } from '../../../../services/user.sevice';
 import { User } from '../../../../models/user/user.model';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-edit',
   imports: [
@@ -20,7 +21,8 @@ import { User } from '../../../../models/user/user.model';
     MatIconModule,
     MatDialogModule,
     MatSelectModule,
-    CommonModule
+    CommonModule,
+    TranslateModule
   ],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css'
@@ -34,13 +36,13 @@ export class EditComponent {
     private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public data: User 
   ) {
-    this.userForm = this.fb.group({
-      id: [this.data.id, Validators.required],  
-      fullName: [this.data.name, [Validators.required, Validators.min(1)]],
-      email: [this.data.email,[Validators.required, Validators.email]],
-    });
-    this.userForm.patchValue(this.data);
-
+    console.log(data)
+    
+  this.userForm = this.fb.group({
+    id: [this.data.id, Validators.required],  
+    fullName: [this.data.fullName, [Validators.required, Validators.min(1)]],
+    email: [this.data.email, [Validators.required, Validators.email]],
+  });
   }
 
   onSubmit(): void {
@@ -48,7 +50,7 @@ export class EditComponent {
       return;
     }
     const updatedUser: User = this.userForm.value;
-
+    updatedUser.username = updatedUser.fullName;
     this.userService.updateUser(updatedUser).subscribe({
       next: () => this.dialogRef.close('success'),
       error: () => this.dialogRef.close('error'),

@@ -1,5 +1,6 @@
 <mat-toolbar color="primary">
-  <span>Product Management</span>
+  <button mat-button (click)="switchLanguage('en')" [disabled]="currentLang === 'en'">🇬🇧 EN</button>
+  <button mat-button (click)="switchLanguage('de')" [disabled]="currentLang === 'de'">🇩🇪 DE</button>
   <div class="spacer"></div>
 
   <button *ngIf="isMobile" mat-icon-button (click)="toggleMenu()">
@@ -7,13 +8,20 @@
   </button>
 
   <div *ngIf="!isMobile || isMenuOpened" class="nav-links">
-    <a mat-button routerLink="/home" (click)="closeMenu()">Home</a>
-    <a mat-button routerLink="/products" (click)="closeMenu()">Products</a>
-    <a mat-button routerLink="/categories" (click)="closeMenu()">Categories</a>
-    <a mat-button *ngIf="userRole=='Admin'" routerLink="/users" (click)="closeMenu()">Users</a>
-    <a mat-button *ngIf="userRole === 'User' || userRole === 'Admin'" (click)="closeMenu()"  routerLink="/usrprofile">Profile</a>
-    <a *ngIf="!isAuthenticated" mat-raised-button color="accent" routerLink="/register" (click)="closeMenu()">Sign Up</a>
+    <!-- Sign Up Link (Only for Unauthenticated Users) -->
+    <a *ngIf="!isAuthenticated" mat-raised-button color="accent" routerLink="/register" (click)="closeMenu()">{{ 'SignUp' | translate }}</a>
 
-    <a *ngIf="isAuthenticated" mat-raised-button color="warn" (click)="logOut()">Log Out</a>
+    <!-- Authenticated Users (Normal Users) -->
+    <a mat-button *ngIf="isAuthenticated && hasAdminOrUserRole()" routerLink="/home" (click)="closeMenu()">{{ 'Home' | translate }}</a>
+    <a mat-button *ngIf="isAuthenticated && hasAdminOrUserRole()" routerLink="/products" (click)="closeMenu()">{{ 'Products' | translate }}</a>
+    <a mat-button *ngIf="isAuthenticated && hasAdminOrUserRole()" routerLink="/categories" (click)="closeMenu()">{{ 'Categories' | translate }}</a>
+    <a mat-button *ngIf="isAuthenticated && hasAdminOrUserRole()" routerLink="/usrprofile" (click)="closeMenu()">{{ 'Profile' | translate }}</a>
+
+    <!-- Admin Links -->
+    <a mat-button *ngIf="isAuthenticated && IsAdmin()" routerLink="/users" (click)="closeMenu()">{{ 'Users' | translate }}</a>
+    <a mat-button *ngIf="isAuthenticated && IsAdmin()" routerLink="/metrics" (click)="closeMenu()">{{ 'Dashboard' | translate }}</a>
+
+    <!-- Log Out Link (Only for Authenticated Users) -->
+    <a *ngIf="isAuthenticated" mat-raised-button color="warn" (click)="logOut()">{{ 'LogOut' | translate }}</a>
   </div>
 </mat-toolbar>

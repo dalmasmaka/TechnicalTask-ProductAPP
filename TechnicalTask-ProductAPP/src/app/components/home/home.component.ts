@@ -28,8 +28,9 @@ export class HomeComponent implements OnInit {
   getGreeting(): string {
     const currentHour = new Date().getHours();
     const isMorning = currentHour < 12;
-    const greeting = isMorning ? 'Good morning' : 'Good afternoon';
+    const greetingKey = isMorning ? 'GoodMorning' : 'GoodAfternoon';
 
+  const greeting = this.translate.instant(greetingKey);
     if (this.userRole === 'Admin') {
       return `${greeting}, Admin`;
     } else {

@@ -9,11 +9,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { tap } from 'rxjs/operators';
-import { UserService } from '../../../../services/user.sevice';
 import { User } from '../../../../models/user/user.model';
 import { AuthService } from '../../../../services/auth.service';
-
-
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
     selector: 'app-add',
     imports: [
@@ -24,7 +22,8 @@ import { AuthService } from '../../../../services/auth.service';
         MatIconModule,
         MatDialogModule,
         MatSelectModule,
-        CommonModule
+        CommonModule,
+        TranslateModule
     ],
     templateUrl: './create.component.html',
     styleUrl: './create.component.css'

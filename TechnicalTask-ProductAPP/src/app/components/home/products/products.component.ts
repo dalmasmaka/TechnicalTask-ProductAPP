@@ -21,6 +21,7 @@ import { CategoryService } from '../../../services/category.service';
 import { Category } from '../../../models/categories/categories.model';
 import { MatSortModule, Sort } from '@angular/material/sort';
 import { TranslateModule } from '@ngx-translate/core';
+import { JwtService } from '../../../services/jwt.service';
 
 
 @Component({
@@ -44,7 +45,7 @@ import { TranslateModule } from '@ngx-translate/core';
 export class ProductsComponent implements OnInit {
   products$: Observable<Product[]>;
   categories$: Observable<Category[]>;
-  displayedColumns: string[] = ['name', 'price', 'quantity', 'status', 'category', 'actions'];
+  displayedColumns: string[] = ['name', 'price', 'quantity', 'status', 'category'];
 
   page: number = 1;
   pageSize: number = 10;
@@ -52,8 +53,9 @@ export class ProductsComponent implements OnInit {
   filterForm: FormGroup;
   defaultSortColumn: string = "Name";
   defaultSortDirection: string = "desc";
+  userRole: string | null = null;
 
-  constructor(private dialog: MatDialog, private productService: ProductService, private toastr: ToastrService, private fb: FormBuilder, private categoryService: CategoryService) {
+  constructor(private dialog: MatDialog, private productService: ProductService, private toastr: ToastrService, private fb: FormBuilder, private categoryService: CategoryService, private jwtService: JwtService) {
     this.products$ = this.productService.products$;
     this.categories$ = this.categoryService.categories$;
     this.productService.count$.subscribe(res => this.totalCount = res);
@@ -65,15 +67,24 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getUserDetails()
     this.categoryService.loadCategories().subscribe();
     this.productService.loadProducts(this.page, this.pageSize, this.defaultSortColumn, this.defaultSortDirection, this.filterForm.value);
     this.filterForm.valueChanges.subscribe((res) => {
-      this.page = 1; 
+      this.page = 1;
       this.productService.loadProducts(this.page, this.pageSize, this.defaultSortColumn, this.defaultSortDirection, this.filterForm.value);
     });
 
   }
-
+  getUserDetails(): void {
+    const decodedToken = this.jwtService.decodeToken();
+    if (decodedToken) {
+      this.userRole = decodedToken.role;
+      if (this.userRole === 'Admin') {
+        this.displayedColumns.push('actions');
+      }
+    }
+  }
   deleteProduct(product: Product): void {
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: product
@@ -87,8 +98,9 @@ export class ProductsComponent implements OnInit {
   }
 
   editProduct(product: Product): void {
+    debugger
     const dialogRef = this.dialog.open(EditComponent, {
-      data: product 
+      data: product
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -121,7 +133,7 @@ export class ProductsComponent implements OnInit {
     });
   }
   clearFilters(): void {
-    this.filterForm.reset(); 
+    this.filterForm.reset();
     this.page = 1;
   }
 }

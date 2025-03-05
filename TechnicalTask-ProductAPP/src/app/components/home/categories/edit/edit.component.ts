@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../../../services/category.service';
 import { MatDialogRef, MatDialogModule, MAT_DIALOG_DATA  } from '@angular/material/dialog';
 import { Category } from '../../../../models/categories/categories.model';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-edit',
   imports: [
@@ -20,7 +21,8 @@ import { Category } from '../../../../models/categories/categories.model';
     MatIconModule,
     MatDialogModule,
     MatSelectModule,
-    CommonModule
+    CommonModule,
+    TranslateModule
   ],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.css'
@@ -32,7 +34,7 @@ export class EditComponent {
     private fb: FormBuilder,
     public dialogRef: MatDialogRef<EditComponent>,
     private categoryService: CategoryService,
-    @Inject(MAT_DIALOG_DATA) public data: Category // Inject the data passed by the parent component
+    @Inject(MAT_DIALOG_DATA) public data: Category 
   ) {
     this.categoryForm = this.fb.group({
       id: [this.data.id, Validators.required],  

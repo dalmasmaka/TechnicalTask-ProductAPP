@@ -13,7 +13,9 @@ import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
-
+import { TranslateModule } from '@ngx-translate/core';
+import { JwtService } from '../../../services/jwt.service';
+import { CommonModule } from '@angular/common';
 @Component({
   standalone:true,
   selector: 'app-category',
@@ -24,7 +26,9 @@ import { Observable } from 'rxjs';
     MatPaginatorModule,
     MatIconModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    TranslateModule,
+    CommonModule
   ],
   styleUrls: ['./categories.component.css']
 })
@@ -33,20 +37,27 @@ export class CategoryComponent implements OnInit {
   category$: Observable<Category[]>;
 
   categories: Category[] = [];
-  displayedColumns: string[] = ['id', 'name', 'createdBy', 'createdAt', 'actions'];
-
-  constructor(private dialog: MatDialog, private categoryService: CategoryService, private toastr: ToastrService) {
+  displayedColumns: string[] = ['id', 'name', 'createdBy', 'createdAt'];
+  userRole: string | null = null;
+  constructor(private dialog: MatDialog, private categoryService: CategoryService, private toastr: ToastrService, private jwtService: JwtService) {
     this.category$ = this.categoryService.categories$;
   }
   ngOnInit(): void {
-    
+    this.getUserDetails()
     this.categoryService.loadCategories().subscribe((data: Category[]) => {
-      console.log('Categories received:', data);  // Check the data received
-      this.categories = data; // Store the data in the component property
+      this.categories = data;
     });
   }
+  getUserDetails(): void {
+    const decodedToken = this.jwtService.decodeToken();
+    if (decodedToken) {
+      this.userRole = decodedToken.role;
+      if (this.userRole === 'Admin') {
+        this.displayedColumns.push('actions');
+      }
+    }
+  }
   deleteCategory(category: Category): void {
-    console.log('Category passed to dialog:', category);
     const dialogRef = this.dialog.open(DeleteComponent, {
       data: category  // Pass the entire category object instead of just the id
     });
@@ -70,12 +81,10 @@ export class CategoryComponent implements OnInit {
       if (result === 'success') {
         this.categoryService.loadCategories().subscribe(
           (data: Category[]) => {
-            console.log('Categories after updating:', data);  // Log the response from the service
             this.categories = data;  // Update the categories list after deletion
             this.toastr.success('Updated Successfully')
           },
           (error) => {
-            console.error('Error loading categories:', error);  // Handle error scenario
             this.toastr.error('Failed to load categories');
           }
         );

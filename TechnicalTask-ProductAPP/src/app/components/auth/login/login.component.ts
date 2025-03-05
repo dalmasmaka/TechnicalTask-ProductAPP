@@ -12,6 +12,8 @@ import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-login',
@@ -24,7 +26,8 @@ import { Router } from '@angular/router';
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    TranslateModule
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
@@ -49,13 +52,18 @@ export class LoginComponent {
 
   onSubmit() {
     if (this.loginForm.invalid) return;
-
+  
     this.isSubmitting = true;
     this.errorMessage = null;
-
-
+  
     this.apiService.login(this.loginForm.value).subscribe({
-      next: () => {
+      next: (res) => {
+        if (!res.success) {
+          this.errorMessage = 'Login failed. Please try again.';
+          this.isSubmitting = false;
+          return; 
+        }
+  
         this.router.navigate(['/home']);
       },
       error: (err) => {
@@ -64,4 +72,5 @@ export class LoginComponent {
       }
     });
   }
+  
 }

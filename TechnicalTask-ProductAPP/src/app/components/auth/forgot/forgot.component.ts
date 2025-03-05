@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';  
 import { LottieAnimationComponent } from '../../lottie/lottie.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-forgot',
@@ -17,7 +18,8 @@ import { LottieAnimationComponent } from '../../lottie/lottie.component';
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    TranslateModule
   ],
   templateUrl: './forgot.component.html',
   styleUrls: ['./forgot.component.css'],

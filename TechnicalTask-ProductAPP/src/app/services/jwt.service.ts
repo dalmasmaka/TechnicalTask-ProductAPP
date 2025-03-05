@@ -27,7 +27,6 @@ export class JwtService {
       try {
         const decoded = helper.decodeToken(token) as JwtToken;
         this.decodedToken = decoded;
-        console.log(decoded)
         return decoded;
       } catch (error) {
         console.error('Error decoding token:', error);

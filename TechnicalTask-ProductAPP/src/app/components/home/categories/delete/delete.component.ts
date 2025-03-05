@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CategoryService } from '../../../../services/category.service';
 import { tap } from 'rxjs/operators';
 import { Category } from '../../../../models/categories/categories.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
 
@@ -11,6 +12,7 @@ import { Category } from '../../../../models/categories/categories.model';
   imports: [
     MatButtonModule,
     MatDialogModule,
+    TranslateModule
   ],
   templateUrl: './delete.component.html',
   styleUrl: './delete.component.css'
@@ -20,9 +22,7 @@ export class DeleteComponent {
     public dialogRef: MatDialogRef<DeleteComponent>,
     private categoryService: CategoryService,
     @Inject(MAT_DIALOG_DATA) public data: Category 
-  ) {
-    console.log('Category data received in DeleteComponent:', this.data);
-  }
+  ) {  }
 
 onSubmit(): void {
   this.categoryService.deleteCategory(this.data.id).pipe(

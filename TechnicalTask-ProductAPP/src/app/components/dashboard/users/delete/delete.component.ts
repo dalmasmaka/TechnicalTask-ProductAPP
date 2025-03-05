@@ -4,11 +4,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { tap } from 'rxjs/operators';
 import { User } from '../../../../models/user/user.model';
 import { UserService } from '../../../../services/user.sevice';
+import { TranslateModule } from '@ngx-translate/core';
 @Component({
   selector: 'app-delete',
   imports: [
     MatButtonModule,
     MatDialogModule,
+    TranslateModule
   ],
   templateUrl: './delete.component.html',
   styleUrl: './delete.component.css'
@@ -18,9 +20,7 @@ export class DeleteComponent {
     public dialogRef: MatDialogRef<DeleteComponent>,
     private userService: UserService,
     @Inject(MAT_DIALOG_DATA) public data: User 
-  ) {
-    console.log('User data received in DeleteComponent:', this.data);
-  }
+  ) {  }
 
 onSubmit(): void {
   this.userService.deleteUser(this.data.id).pipe(

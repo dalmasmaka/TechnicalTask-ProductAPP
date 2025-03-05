@@ -47,7 +47,6 @@ export class UsrProfileComponent implements OnInit {
         });
 
         this.getUserCurrentUserId();
-        // Initialize the form with the current user's data
 
     }
 
@@ -60,7 +59,7 @@ export class UsrProfileComponent implements OnInit {
             this.userProfileForm.get('fullName')?.setValue(decodedToken.fullName);
             this.userProfileForm.get('email')?.setValue(decodedToken.email);
             this.userProfileForm.get('id')?.setValue(this.userId);
-            console.log(this.userProfileForm)
+            (this.userProfileForm)
         }
     }
 
@@ -70,6 +69,7 @@ export class UsrProfileComponent implements OnInit {
             this.userService.updateUser(this.userProfileForm.value).subscribe({
                 next: (data) => {
                     this.toastr.success('User updated successfully');
+                    this.getUserCurrentUserId();
                 },
                 error: (err) => {
                     this.toastr.error('Error updating user data');
@@ -77,22 +77,6 @@ export class UsrProfileComponent implements OnInit {
             });
         }
     }
-    
-    // onSubmit(): void {
-    //     if (this.userProfileForm.valid) {
-    //         const updatedUser: User = this.userProfileForm.value;
-    //         console.log('Form Values:', this.userProfileForm.value);
-    //         this.userService.updateUser(updatedUser).subscribe({
-    //             next: (data) => {
-    //                 this.toastr.success('User updated successfully');
-    //             },
-    //             error: (err) => {
-    //                 this.toastr.error('Error updating user data');
-    //             }
-    //         });
-    //     }
-    // }
-
     onChangeAccountInfo(): void {
         this.isFormDisabled = false;
         this.userProfileForm.controls['fullName'].enable();

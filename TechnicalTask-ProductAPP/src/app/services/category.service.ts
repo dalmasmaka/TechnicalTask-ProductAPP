@@ -12,15 +12,15 @@ import { debug } from 'node:console';
 export class CategoryService {
 
   controllerName: string = "Category"
-  private categorysSubject = new BehaviorSubject<Category[]>([]);
-  public categories$: Observable<Category[]> = this.categorysSubject.asObservable();
+  private categoriesSubject = new BehaviorSubject<Category[]>([]);
+  public categories$: Observable<Category[]> = this.categoriesSubject.asObservable();
 
   constructor(private apiService: ApiService) { }
 
   loadCategories(): Observable<Category[]> {
     return this.apiService.get<Category[]>(this.controllerName).pipe(
       tap((data) => {
-        this.categorysSubject.next(data);// Log the data
+        this.categoriesSubject.next(data);
       }),
       catchError((error) => {
         console.error('Error loading Categories', error);
@@ -32,8 +32,8 @@ export class CategoryService {
   addCategory(Category: Category): Observable<Category> {
     return this.apiService.post<Category, Category>(this.controllerName, Category).pipe(
       tap((newCategory: Category) => {
-        const currentCategories = this.categorysSubject.getValue();
-        this.categorysSubject.next([...currentCategories, newCategory]);
+        const currentCategories = this.categoriesSubject.getValue();
+        this.categoriesSubject.next([...currentCategories, newCategory]);
       })
     );
   }
@@ -42,22 +42,21 @@ export class CategoryService {
   deleteCategory(CategoryId: number): Observable<void> {
     return this.apiService.delete<void>(`${this.controllerName}/${CategoryId}`).pipe(
       tap(() => {
-        const updatedCategories = this.categorysSubject
+        const updatedCategories = this.categoriesSubject
           .getValue()
           .filter((Category: Category) => Category.id !== CategoryId);
-        this.categorysSubject.next(updatedCategories);
+        this.categoriesSubject.next(updatedCategories);
       })
     );
   }
 
   updateCategory(Category: Category): Observable<Category> {
-    console.log(Category)
     return this.apiService.put<Category, Category>(`${this.controllerName}/${Category.id}`, Category).pipe(
       tap((updatedCategory: Category) => {
-        const currentCategories = this.categorysSubject.getValue();
+        const currentCategories = this.categoriesSubject.getValue();
         const index = currentCategories.findIndex((p) => p.id === updatedCategory.id);
         currentCategories[index] = updatedCategory;
-        this.categorysSubject.next([...currentCategories]);
+        this.categoriesSubject.next([...currentCategories]);
       })
     );
   }

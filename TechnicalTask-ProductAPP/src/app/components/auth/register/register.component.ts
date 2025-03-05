@@ -9,6 +9,8 @@ import { LottieAnimationComponent } from '../../lottie/lottie.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { ToastrService } from 'ngx-toastr';
 @Component({
     selector: 'app-register',
     standalone: true,
@@ -20,16 +22,18 @@ import { Router } from '@angular/router';
         MatButtonModule,
         MatCardModule,
         MatFormFieldModule,
-        MatInputModule
+        MatInputModule,
+        TranslateModule
     ],
     templateUrl: './register.component.html',
     styleUrl: './register.component.css',
 })
 export class RegisterComponent {
     register: FormGroup;
+    isSubmitting= false;
+    errorMessage: string | null = null;
 
-
-    constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+    constructor(private fb: FormBuilder, private authService: AuthService, private router: Router, private toastr: ToastrService) {
         this.register = this.fb.group({
             name: ['', [Validators.required]],
             username: ['', [Validators.required]],
@@ -46,9 +50,14 @@ export class RegisterComponent {
     get password() { return this.register.get('password'); }
 
     onSubmit() {
+        if (this.register.invalid) return;
+
+        this.isSubmitting = true;
+        this.errorMessage = null;
         this.authService.register(this.register.value)
             .subscribe(
                 (res) => {
+                    this.toastr.success("You signed up successfully")
                     this.router.navigate(['/home']);
                 }
             )

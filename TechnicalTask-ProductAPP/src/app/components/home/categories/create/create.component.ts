@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from '../../../../services/category.service';
 import { tap } from 'rxjs/operators';
 import { Category } from '../../../../models/categories/categories.model';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add',
@@ -22,7 +23,8 @@ import { Category } from '../../../../models/categories/categories.model';
     MatIconModule,
     MatDialogModule,
     MatSelectModule,
-    CommonModule
+    CommonModule,
+    TranslateModule
   ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.css'
