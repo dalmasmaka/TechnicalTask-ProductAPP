@@ -14,7 +14,7 @@ Follow these steps to set up and run the project:
 
 1. **Clone the repository**
    ```sh
-   git clone [<repository-url>](https://github.com/dalmasmaka/TechnicalTask-ProductAPP.git)
+   git clone (https://github.com/dalmasmaka/TechnicalTask-ProductAPP.git)
    ```
 2. **Navigate to the project directory**
    ```sh
