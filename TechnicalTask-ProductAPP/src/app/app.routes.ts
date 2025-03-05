@@ -2,23 +2,21 @@ import { Routes } from '@angular/router';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { HomeComponent } from './components/home/home.component';
-import { CategoryComponent } from './components/home/categories/categories';
+import { CategoryComponent } from './components/home/categories/categories.component';
 import { ProductsComponent } from './components/home/products/products.component';
 import { ForgotComponent } from './components/auth/forgot/forgot.component';
-
+import { AuthGuard } from './guards/authguards';
+import { UsersComponent } from './components/dashboard/users/user.component';
+import { GuestGuard } from './guards/guestguards';
+import { UsrProfileComponent } from './components/dashboard/userprofile/usrprofile.component';
 export const routes: Routes = [
-    {path: '', redirectTo: 'login', pathMatch:'full'},
-    //{ path: 'products', component: ProductsComponent },
-    {path: 'login', component: LoginComponent},
-    {path: 'register', component: RegisterComponent},
-    { path: 'products', component: ProductsComponent },
-    { path: 'forgotpassword', component: ForgotComponent },
-    { path: 'categories', component: CategoryComponent },
-    {
-        path: 'home', component: HomeComponent, children: [
-            // { path: 'products', component: ProductsComponent },
-            // { path: 'categories', component: CategoryComponent },
-         ]
-        // ], canActivate: [AuthGuard]
-    }
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+    { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
+    { path: 'forgotpassword', component: ForgotComponent, canActivate: [GuestGuard] },
+    { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+    { path: 'categories', component: CategoryComponent, canActivate: [AuthGuard] },
+    { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'usrprofile', component: UsrProfileComponent, canActivate: [AuthGuard] }
 ];
