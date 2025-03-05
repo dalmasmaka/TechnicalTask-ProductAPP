@@ -6,28 +6,47 @@
     <div class="right-panel">
       <div class="login-box">
         <h1>Sign Up</h1>
-        <form>
+        <form [formGroup]="register" (ngSubmit)="onSubmit()">
           <div class="input-group">
-            <label for="email">Email</label>
-            <input type="text" id="email" placeholder="Enter your username" />
+            <label for="name">Name</label>
+            <input formControlName="name" type="text" id="name" placeholder="Enter your name" />
+            <div class="error" *ngIf="name?.invalid && name?.touched">
+              <span *ngIf="name?.errors?.['required']">Name is required.</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="surname">Surname</label>
+            <input formControlName="surname" type="text" id="surname" placeholder="Enter your surname" />
+            <div class="error" *ngIf="surname?.invalid && name?.touched">
+              <span *ngIf="surname?.errors?.['required']">surname is required.</span>
+            </div>
           </div>
           <div class="input-group">
             <label for="username">Username</label>
-            <input type="text" id="username" placeholder="Enter your username" />
+            <input formControlName="username" type="text" id="username" placeholder="Enter your username" />
+            <div class="error" *ngIf="username?.invalid && username?.touched">
+              <span *ngIf="username?.errors?.['required']">Username is required.</span>
+            </div>
+          </div>
+          <div class="input-group">
+            <label for="email">Email</label>
+            <input formControlName="email"  type="email" id="email" placeholder="Enter your email" />
+            <div class="error" *ngIf="email?.invalid && email?.touched">
+              <span *ngIf="email?.errors?.['required']">Email is required.</span>
+            </div>
           </div>
           <div class="input-group">
             <label for="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" />
-          </div>
-          <div class="input-group">
-            <label for="confirmPassword">Confirm Password</label>
-            <input type="password" id="confirmPassword" placeholder="Enter your password" />
+            <input type="password"  formControlName="password"  id="password" placeholder="Enter your password" />
+            <div class="error" *ngIf="password?.invalid && password?.touched">
+              <span *ngIf="password?.errors?.['required']">password is required.</span>
+            </div>
           </div>
           <div class="actions">
             <a routerLink='/login'>Already have an account?</a>
             <a routerLink='/forgotpassword'>Forgot password?</a>
           </div>
-          <button mat-raised-button color="accent" routerLink="/register">Sign up</button>
+          <button mat-raised-button color="accent" type="submit" >Sign up</button>
         </form>
       </div>
     </div>

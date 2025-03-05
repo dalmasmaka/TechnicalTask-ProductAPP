@@ -1,17 +1,19 @@
 <mat-toolbar color="primary">
-    <span>Product Management</span>
-    <div class="spacer"></div>
-    
-    <button *ngIf="isMobile" mat-icon-button (click)="toggleMenu()">
-      <mat-icon>menu</mat-icon>
-    </button>
-  
-    <div *ngIf="!isMobile || isMenuOpened" class="nav-links">
-      <a mat-button routerLink="/home" (click)="closeMenu()">Home</a>
-      <a mat-button routerLink="/products" (click)="closeMenu()">Products</a>
-      <a mat-button routerLink="/categories" (click)="closeMenu()">Categories</a>
-      <a mat-button routerLink="/dashboard" (click)="closeMenu()">Dashboard</a>
-      <a mat-raised-button color="accent" routerLink="/register" (click)="closeMenu()">Sign Up</a>
-    </div>
-  </mat-toolbar>
-  
+  <span>Product Management</span>
+  <div class="spacer"></div>
+
+  <button *ngIf="isMobile" mat-icon-button (click)="toggleMenu()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <div *ngIf="!isMobile || isMenuOpened" class="nav-links">
+    <a mat-button routerLink="/home" (click)="closeMenu()">Home</a>
+    <a mat-button routerLink="/products" (click)="closeMenu()">Products</a>
+    <a mat-button routerLink="/categories" (click)="closeMenu()">Categories</a>
+    <a mat-button *ngIf="userRole=='Admin'" routerLink="/users" (click)="closeMenu()">Users</a>
+    <a mat-button *ngIf="userRole === 'User' || userRole === 'Admin'" (click)="closeMenu()"  routerLink="/usrprofile">Profile</a>
+    <a *ngIf="!isAuthenticated" mat-raised-button color="accent" routerLink="/register" (click)="closeMenu()">Sign Up</a>
+
+    <a *ngIf="isAuthenticated" mat-raised-button color="warn" (click)="logOut()">Log Out</a>
+  </div>
+</mat-toolbar>

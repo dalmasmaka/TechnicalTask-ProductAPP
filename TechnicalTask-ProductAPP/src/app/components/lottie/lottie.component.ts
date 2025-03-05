@@ -3,7 +3,7 @@ import { AnimationItem } from 'lottie-web';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AnimationOptions } from 'ngx-lottie';
 import { LottieComponent } from 'ngx-lottie';
-import animationData from "../../assets/animation.json"; 
+import animationData from './../../../assets/animation.json'; 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
