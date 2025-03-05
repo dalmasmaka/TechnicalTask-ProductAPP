@@ -35,7 +35,6 @@ export class AuthService {
   }
 
   forgotPassword(email: string): Observable<any> {
-    console.log(email)
     return this.apiService.post<ForgotPasswordResponse, { email: string}>('auth/forgotPassword', { email }).pipe(
       tap((res) => {
         this.toastr.success(res.message) 
@@ -86,7 +85,6 @@ export class AuthService {
 
   hasRole(role: string): boolean {
     return this.jwtService.hasRole(role);
-    console.log(role)
   }
 
 }

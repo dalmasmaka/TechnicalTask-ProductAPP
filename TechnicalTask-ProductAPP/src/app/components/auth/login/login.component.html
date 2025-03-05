@@ -6,33 +6,33 @@
     <div class="right-panel">
       <div class="login-box">
         <section class="mat-typography">
-          <h1>Log in</h1>
+          <h1>{{'SignIn' | translate}}</h1>
         </section>
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="input-group">
-            <label for="username">Email</label>
-            <input type="username" id="username" formControlName="username" placeholder="Enter your email" />
+            <label for="username">{{'Username' | translate}}</label>
+            <input type="username" id="username" formControlName="username" placeholder="Enter your name" />
             <div class="error" *ngIf="username?.invalid && username?.touched">
-              <span *ngIf="username?.errors?.['required']">Email is required.</span>
+              <span *ngIf="username?.errors?.['required']">{{'FieldRequired'| translate}}</span>
             </div>
           </div>
 
           <div class="input-group">
-            <label for="password">Password</label>
+            <label for="password">{{'Password' | translate}}</label>
             <input type="password" id="password" formControlName="password" placeholder="Enter your password" />
             <div class="error" *ngIf="password?.invalid && password?.touched">
-              <span *ngIf="password?.errors?.['required']">Password is required.</span>
+              <span *ngIf="password?.errors?.['required']">{{'FieldRequired'| translate}}</span>
             </div>
           </div>
 
           <div class="actions">
-            <a routerLink='/register'>Don't have an account?</a>
-            <a routerLink='/forgotpassword'>Forgot password?</a>
+            <a routerLink='/register'>{{'DontHaveAccount' | translate}}</a>
+            <a routerLink='/forgotpassword'>{{'ForgotPassword' | translate}}</a>
           </div>
           <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
           <button mat-raised-button color="accent" type="submit" [disabled]="isSubmitting || loginForm.invalid">
-            {{ isSubmitting ? 'Signing in...' : 'Sign in' }}
+            {{ isSubmitting ? ('SigningIn' | translate) : ('SignIn' | translate) }}
           </button>
 
           

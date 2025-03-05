@@ -1,6 +1,6 @@
 <div class="mat-elevation-z8 user-container">
-    <h2>List of Users</h2>
-    <button mat-raised-button mat-button (click)="openAddUserDialog()">Add User</button>
+    <h2>{{'UsersList' | translate}}</h2>
+    <button mat-raised-button mat-button (click)="openAddUserDialog()">{{'AddUser' | translate}}</button>
     <table class="data-table" mat-table [dataSource]="users">
   
       <!-- ID Column -->
@@ -11,7 +11,7 @@
   
       <!-- Name Column -->
       <ng-container matColumnDef="fullName">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <th mat-header-cell *matHeaderCellDef> {{'Name' | translate}} </th>
         <td mat-cell *matCellDef="let user"> {{ user.fullName }} </td>
       </ng-container>
 
@@ -22,22 +22,22 @@
   
       <!-- CreatedBy Column -->
       <ng-container matColumnDef="loginTimestamp">
-        <th mat-header-cell *matHeaderCellDef>Last Log in</th>
+        <th mat-header-cell *matHeaderCellDef>{{'LastLogin' | translate}}</th>
         <td mat-cell *matCellDef="let user">  {{ user.loginTimestamp === '0001-01-01T00:00:00' ? '--' : (user.loginTimestamp | date:'short')}} </td>
       </ng-container>
   
       <!-- CreatedAt Column -->
       <ng-container matColumnDef="logOutTimestamp">
-        <th mat-header-cell *matHeaderCellDef>Last Log out</th>
+        <th mat-header-cell *matHeaderCellDef>{{'LastLogin' | translate}}</th>
         <td mat-cell *matCellDef="let user">  {{ user.logOutTimestamp === '0001-01-01T00:00:00' ? '--' : (user.logOutTimestamp | date:'short') }} </td>
       </ng-container>
   
       <!-- Actions Column -->
       <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <th mat-header-cell *matHeaderCellDef>{{'Actions' | translate}}</th>
         <td mat-cell *matCellDef="let user">
-          <button mat-button (click)="editUser(user)">Edit</button>
-          <button mat-button color="warn" (click)="deleteUser(user)">Delete</button>
+          <button mat-button *ngIf="userRole === 'Admin'" (click)="editUser(user)">{{'Edit' | translate}}</button>
+          <button mat-button *ngIf="userRole === 'Admin'" color="warn" (click)="deleteUser(user)">{{'Delete' | translate}}</button>
         </td>
       </ng-container>
   

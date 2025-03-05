@@ -47,6 +47,5 @@ export class LottieAnimationComponent {
   
 
   animationCreated(animationItem: AnimationItem): void {
-    console.log('Lottie animation created:', animationItem);
   }
 }

@@ -9,6 +9,7 @@ import { AuthGuard } from './guards/authguards';
 import { UsersComponent } from './components/dashboard/users/user.component';
 import { GuestGuard } from './guards/guestguards';
 import { UsrProfileComponent } from './components/dashboard/userprofile/usrprofile.component';
+import { MetricsDashboardComponent } from './components/dashboard/metrics/metrics.component';
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
@@ -18,5 +19,7 @@ export const routes: Routes = [
     { path: 'categories', component: CategoryComponent, canActivate: [AuthGuard] },
     { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-    { path: 'usrprofile', component: UsrProfileComponent, canActivate: [AuthGuard] }
+    { path: 'usrprofile', component: UsrProfileComponent, canActivate: [AuthGuard] },
+    { path: 'metrics', component: MetricsDashboardComponent, canActivate: [AuthGuard] }
+
 ];
