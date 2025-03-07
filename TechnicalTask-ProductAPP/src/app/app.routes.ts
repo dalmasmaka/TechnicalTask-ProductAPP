@@ -21,5 +21,4 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'usrprofile', component: UsrProfileComponent, canActivate: [AuthGuard] },
     { path: 'metrics', component: MetricsDashboardComponent, canActivate: [AuthGuard] }
-
 ];

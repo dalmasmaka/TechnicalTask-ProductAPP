@@ -14,6 +14,7 @@ import { Product } from '../../../../models/products/products.model';
 import { ProductService } from '../../../../services/products.service';
 import { Category } from '../../../../models/categories/categories.model';
 import { CategoryService } from '../../../../services/category.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-create',
@@ -38,7 +39,8 @@ export class CreateComponent implements OnInit {
     public dialogRef: MatDialogRef<CreateComponent>,
     private productService: ProductService,
     private categoryService: CategoryService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private toastr: ToastrService
   ) {
     this.productForm = this.fb.group({
       name: ['', Validators.required],  
@@ -65,6 +67,7 @@ export class CreateComponent implements OnInit {
 
     this.productService.addProduct(productData).pipe(
       tap((res) => {
+        this.toastr.success("Product created successfully")
         this.dialogRef.close('success');
       })
     ).subscribe()
