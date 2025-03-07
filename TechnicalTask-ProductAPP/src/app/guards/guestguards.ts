@@ -16,3 +16,7 @@ export class GuestGuard implements CanActivate {
     return true;
   }
 }
+
+
+//routers with GuestGuard can be accessed only when the user it is not authenticated 
+//otherwise it will navigate them in route home

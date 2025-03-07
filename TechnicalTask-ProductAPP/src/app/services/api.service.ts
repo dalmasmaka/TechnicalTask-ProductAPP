@@ -16,11 +16,12 @@ export class ApiService {
         const url = `${environment.apiUrl}/${path}`
         return this.http.get<HttpResponseModel>(url);
     }
-    //get by id
+    //get by id: int
     getById<HttpResponseModel>(path: string, id: number): Observable<HttpResponseModel> {
         const url = `${environment.apiUrl}/${path}/${id}`;
         return this.http.get<HttpResponseModel>(url);
     }
+    //get by id: number
     getByuserId<HttpResponseModel>(path: string, id: string): Observable<HttpResponseModel> {
         const url = `${environment.apiUrl}/${path}/${id}`;
         return this.http.get<HttpResponseModel>(url);
@@ -31,28 +32,26 @@ export class ApiService {
         return this.http.put<HttpResponseModel>(url, data);
     }
     //post
-    post<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> { 
+    post<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> {
         const url = `${environment.apiUrl}/${path}`;
         const headers = new HttpHeaders({
-          'Content-Type': 'application/json',
+            'Content-Type': 'application/json',
         });
-      
+
         return this.http.post<HttpResponseModel>(url, data, { headers });
-      }
-      
+    }
+
     delete<HttpResponseModel>(path: string): Observable<HttpResponseModel> {
         const url = `${environment.apiUrl}/${path}`;
         return this.http.delete<HttpResponseModel>(url);
     }
-   
+
     postProducts<HttpResponseModel, RequestModel>(path: string, data: RequestModel): Observable<HttpResponseModel> {
-    const url = `${environment.apiUrl}/${path}`;
+        const url = `${environment.apiUrl}/${path}`;
 
-    const headers = new HttpHeaders()
-        .set('Content-Type', 'application/json');  
+        const headers = new HttpHeaders()
+            .set('Content-Type', 'application/json');
 
-    return this.http.post<HttpResponseModel>(url, data, { headers });
-}
-
-    
+        return this.http.post<HttpResponseModel>(url, data, { headers });
+    }
 }

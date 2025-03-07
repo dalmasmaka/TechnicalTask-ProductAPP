@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, map, Observable, of, tap } from "rxjs";
 import { User } from "../models/user/user.model";
-import { AuthService } from "./auth.service";
 import { ApiService } from "./api.service";
 import { ToastrService } from "ngx-toastr";
 
